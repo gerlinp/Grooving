@@ -11,11 +11,21 @@ import RadioGroup from '@material-ui/core'
 import FormControlLabel from '@material-ui/core'
 
 export default class CreateRoomPage extends Component {
+  defaultVotes = 2
+
   constructor(props) {
     super(props)
   }
 
   render() {
-    return <p>This the create room page</p>
+    return (
+      <Grid container spacing={1}>
+        <Grid itemxs={12} align='center'>
+          <Typography component='h4' variant='h4'>
+            Create A Room
+          </Typography>
+        </Grid>
+      </Grid>
+    )
   }
 }
