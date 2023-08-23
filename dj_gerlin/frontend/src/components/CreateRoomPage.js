@@ -25,6 +25,27 @@ export default class CreateRoomPage extends Component {
             Create A Room
           </Typography>
         </Grid>
+        <Grid itemxs={12} align='center'>
+          <FormControl component='fieldset'>
+            <FormHelperText>
+              <div align='center'>Guest Controls of Playback State</div>
+            </FormHelperText>
+            <RadioGroup row defaultValue='true'>
+              <FormControlLabel
+                value='true'
+                control={<Radio color='primary' />}
+                label='Play/Pause'
+                labelPlacement='bottom'
+              />
+              <FormControlLabel
+                value='false'
+                control={<Radio color='secondary' />}
+                label='No control'
+                labelPlacement='bottom'
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
       </Grid>
     )
   }
