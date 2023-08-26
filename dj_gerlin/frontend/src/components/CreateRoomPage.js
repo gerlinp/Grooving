@@ -19,6 +19,7 @@ export default class CreateRoomPage extends Component {
       guestCanPause: true,
       votesToSkip: this.defaultVotes,
     }
+
     this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this)
     this.handleVotesChange = this.handleVotesChange.bind(this)
     this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this)
@@ -47,7 +48,7 @@ export default class CreateRoomPage extends Component {
     }
     fetch('/api/create-room', requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => this.props.history.push('/room/' + data.code))
   }
 
   render() {
@@ -61,7 +62,7 @@ export default class CreateRoomPage extends Component {
         <Grid item xs={12} align='center'>
           <FormControl component='fieldset'>
             <FormHelperText>
-              <div align='center'>Guest Controls of Playback State</div>
+              <div align='center'>Guest Control of Playback State</div>
             </FormHelperText>
             <RadioGroup row defaultValue='true' onChange={this.handleGuestCanPauseChange}>
               <FormControlLabel
@@ -73,7 +74,7 @@ export default class CreateRoomPage extends Component {
               <FormControlLabel
                 value='false'
                 control={<Radio color='secondary' />}
-                label='No control'
+                label='No Control'
                 labelPlacement='bottom'
               />
             </RadioGroup>
@@ -92,7 +93,7 @@ export default class CreateRoomPage extends Component {
               }}
             />
             <FormHelperText>
-              <div align='center'>Votes required to skip a song</div>
+              <div align='center'>Votes Required To Skip Song</div>
             </FormHelperText>
           </FormControl>
         </Grid>
