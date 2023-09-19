@@ -1,0 +1,1 @@
+Must have django and python installed
