@@ -1,4 +1,5 @@
 # Groove App
+A spotify party music APP that allows a host to invite others to play pause and skip songs from multiple devices.
 
 ## Setup Instructions 
 ### Install required Python Modules
