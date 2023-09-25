@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
-import { Grid, Button, Typography, responsiveFontSizes } from '@material-ui/core'
+import {
+  Grid,
+  Button,
+  Typography,
+  responsiveFontSizes,
+} from '@material-ui/core'
 import CreateRoomPage from './CreateRoomPage'
 
 export default class Room extends Component {
@@ -11,7 +16,7 @@ export default class Room extends Component {
       isHost: false,
       showSettings: false,
       spotifyAuthenticated: false,
-      song: {}
+      song: {},
     }
     this.roomCode = this.props.match.params.roomCode
     this.leaveButtonPressed = this.leaveButtonPressed.bind(this)
@@ -20,8 +25,8 @@ export default class Room extends Component {
     this.renderSettings = this.renderSettings.bind(this)
     this.getRoomDetails = this.getRoomDetails.bind(this)
     this.authenticateSpotify = this.authenticateSpotify.bind(this)
+    this.getCurrentSong = this.getCurrentSong.bind(this)
     this.getRoomDetails()
-    this.getCurrentSong()
   }
 
   getRoomDetails() {
@@ -62,13 +67,15 @@ export default class Room extends Component {
   }
 
   getCurrentSong() {
-    fetch('/spotify/current-song').then((response) => {
-      if (!response.ok) {
-        return {};
-      } else {
-        response.json();
-      }
-    }).then((data) => this.setState({ song: data }))
+    fetch('/spotify/current-song')
+      .then((response) => {
+        if (!response.ok) {
+          return {}
+        } else {
+          response.json()
+        }
+      })
+      .then((data) => this.setState({ song: data }))
   }
 
   leaveButtonPressed() {
@@ -116,7 +123,11 @@ export default class Room extends Component {
   renderSettingsButton() {
     return (
       <Grid item xs={12} align='center'>
-        <Button variant='contained' color='primary' onClick={() => this.updateShowSettings(true)}>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => this.updateShowSettings(true)}
+        >
           Settings
         </Button>
       </Grid>
@@ -137,7 +148,11 @@ export default class Room extends Component {
         {this.state.song}
         {this.state.isHost ? this.renderSettingsButton() : null}
         <Grid item xs={12} align='center'>
-          <Button variant='contained' color='secondary' onClick={this.leaveButtonPressed}>
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={this.leaveButtonPressed}
+          >
             Leave Room
           </Button>
         </Grid>

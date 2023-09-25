@@ -18,7 +18,7 @@ class AuthURL(APIView):
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID
         }).prepare().url
-
+ 
         return Response({'url': url}, status=status.HTTP_200_OK)
 
 
@@ -66,8 +66,10 @@ class CurrentSong(APIView):
         host = room.host
         endpoint = 'player/currently-playing'
         response = execute_spotify_api_request(host, endpoint)
-        if 'error'in response or 'item' not in response:
+
+        if 'error' in response or 'item' not in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
+
         item = response.get('item')
         duration = item.get('duration_ms')
         progress = response.get('progress_ms')
@@ -79,10 +81,10 @@ class CurrentSong(APIView):
 
         for i, artist in enumerate(item.get('artists')):
             if i > 0:
-                artist_string += ','
+                artist_string += ', '
             name = artist.get('name')
             artist_string += name
-        
+
         song = {
             'title': item.get('name'),
             'artist': artist_string,
@@ -94,5 +96,5 @@ class CurrentSong(APIView):
             'id': song_id
         }
 
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(song, status=status.HTTP_200_OK)
     
