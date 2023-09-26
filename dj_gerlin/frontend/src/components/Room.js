@@ -25,7 +25,7 @@ export default class Room extends Component {
     this.renderSettings = this.renderSettings.bind(this)
     this.getRoomDetails = this.getRoomDetails.bind(this)
     this.authenticateSpotify = this.authenticateSpotify.bind(this)
-    this.getCurrentSong = this.getCurrentSong.bind(this)
+    this.getCurrentSong()
     this.getRoomDetails()
   }
 
