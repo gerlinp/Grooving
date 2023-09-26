@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-import {
-  Grid,
-  Button,
-  Typography,
-  responsiveFontSizes,
-} from '@material-ui/core'
+import { Grid, Button, Typography } from '@material-ui/core'
 import CreateRoomPage from './CreateRoomPage'
+import MusicPlayer from './MusicPlayer'
 
 export default class Room extends Component {
   constructor(props) {
@@ -25,8 +21,16 @@ export default class Room extends Component {
     this.renderSettings = this.renderSettings.bind(this)
     this.getRoomDetails = this.getRoomDetails.bind(this)
     this.authenticateSpotify = this.authenticateSpotify.bind(this)
-    this.getCurrentSong()
+    this.getCurrentSong = this.getCurrentSong.bind(this)
     this.getRoomDetails()
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.getCurrentSong, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   getRoomDetails() {
@@ -72,10 +76,11 @@ export default class Room extends Component {
         if (!response.ok) {
           return {}
         } else {
-          response.json()
+          return response.json()
         }
       })
       .then((data) => this.setState({ song: data }))
+    console.log(data)
   }
 
   leaveButtonPressed() {
@@ -145,7 +150,7 @@ export default class Room extends Component {
             Code: {this.roomCode}
           </Typography>
         </Grid>
-        {this.state.song}
+        <MusicPlayer {...this.state.song} />
         {this.state.isHost ? this.renderSettingsButton() : null}
         <Grid item xs={12} align='center'>
           <Button
