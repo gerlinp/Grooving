@@ -79,8 +79,10 @@ export default class Room extends Component {
           return response.json()
         }
       })
-      .then((data) => this.setState({ song: data }))
-    console.log(data)
+      .then((data) => {
+        this.setState({ song: data })
+        // console.log(data)
+      })
   }
 
   leaveButtonPressed() {
@@ -144,10 +146,10 @@ export default class Room extends Component {
       return this.renderSettings()
     }
     return (
-      <Grid container spacing={1}>
+      <Grid container spacing={1} justifyContent='center'>
         <Grid item xs={12} align='center'>
           <Typography variant='h4' component='h4'>
-            Code: {this.roomCode}
+            Room Code: {this.roomCode}
           </Typography>
         </Grid>
         <MusicPlayer {...this.state.song} />
