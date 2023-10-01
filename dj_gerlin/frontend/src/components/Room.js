@@ -153,16 +153,18 @@ export default class Room extends Component {
           </Typography>
         </Grid>
         <MusicPlayer {...this.state.song} />
-        {this.state.isHost ? this.renderSettingsButton() : null}
-        <Grid item xs={12} align='center'>
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={this.leaveButtonPressed}
-          >
-            Leave Room
-          </Button>
-        </Grid>
+        <div id='btm-bar'>
+          {this.state.isHost ? this.renderSettingsButton() : null}
+          <Grid item xs={12} align='center'>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={this.leaveButtonPressed}
+            >
+              Leave Room
+            </Button>
+          </Grid>
+        </div>
       </Grid>
     )
   }
