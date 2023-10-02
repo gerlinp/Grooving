@@ -151,3 +151,15 @@ class SkipSong(APIView):
             vote.save()
 
         return Response({}, status.HTTP_204_NO_CONTENT)
+
+
+class PreviousSong(APIView):
+    def post(self, request, format=None):
+        room_code = request.session.get('room_code')
+        # Use .first() instead of [0] to get the first result
+        room = Room.objects.filter(code=room_code).first()
+        if room:
+            previous_song(room.host)
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
