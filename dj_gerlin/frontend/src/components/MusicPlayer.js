@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   Grid,
   Typography,
@@ -11,12 +11,8 @@ import PauseIcon from '@material-ui/icons/Pause'
 import SkipNextIcon from '@material-ui/icons/SkipNext'
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious'
 
-export default class MusicPlayer extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  skipSong() {
+function MusicPlayer(props) {
+  const skipSong = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -24,7 +20,7 @@ export default class MusicPlayer extends Component {
     fetch('/spotify/skip', requestOptions)
   }
 
-  previousSong() {
+  const previousSong = () => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,7 +28,7 @@ export default class MusicPlayer extends Component {
     fetch('/spotify/previous', requestOptions)
   }
 
-  pauseSong() {
+  const pauseSong = () => {
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -40,7 +36,7 @@ export default class MusicPlayer extends Component {
     fetch('/spotify/pause', requestOptions)
   }
 
-  playSong() {
+  const playSong = () => {
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -48,48 +44,52 @@ export default class MusicPlayer extends Component {
     fetch('/spotify/play', requestOptions)
   }
 
-  render() {
-    const songProgress = (this.props.time / this.props.duration) * 100
+  const songProgress = (props.time / props.duration) * 100
 
-    return (
-      <div id='musicplayer'>
-        <Grid id='musiccontainer' container alignItems='center'>
-          <Grid id='music-img' item align='center'>
-            <img src={this.props.image_url} height='100%' width='100%' />
-          </Grid>
-
-          <div id='music-btm'>
-            <Grid align='center' xs={8}>
-              <div id='song-info'>
-                <Typography component='h5' variant='h5'>
-                  {this.props.title}
-                </Typography>
-                <Typography color='textSecondary' variant='subtitle1'>
-                  {this.props.artist}
-                </Typography>
-              </div>
-
-              <LinearProgress variant='determinate' value={songProgress} />
-              <div>
-                <IconButton onClick={() => this.previousSong()}>
-                  <SkipPreviousIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    this.props.is_playing ? this.pauseSong() : this.playSong()
-                  }}
-                >
-                  {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
-                </IconButton>
-                <IconButton onClick={() => this.skipSong()}>
-                  {/* {this.props.votes} / {this.props.votes_required} */}
-                  <SkipNextIcon />
-                </IconButton>
-              </div>
-            </Grid>
-          </div>
+  return (
+    <div id='musicplayer'>
+      <Grid id='musiccontainer' container alignItems='center'>
+        <Grid id='music-img' item align='center'>
+          <img
+            src={props.image_url}
+            height='100%'
+            width='100%'
+            alt='Album Cover'
+          />
         </Grid>
-      </div>
-    )
-  }
+
+        <div id='music-btm'>
+          <Grid align='center' xs={8}>
+            <div id='song-info'>
+              <Typography component='h5' variant='h5'>
+                {props.title}
+              </Typography>
+              <Typography color='textSecondary' variant='subtitle1'>
+                {props.artist}
+              </Typography>
+            </div>
+
+            <LinearProgress variant='determinate' value={songProgress} />
+            <div>
+              <IconButton onClick={previousSong}>
+                <SkipPreviousIcon />
+              </IconButton>
+              <IconButton
+                onClick={() => {
+                  props.is_playing ? pauseSong() : playSong()
+                }}
+              >
+                {props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+              </IconButton>
+              <IconButton onClick={skipSong}>
+                <SkipNextIcon />
+              </IconButton>
+            </div>
+          </Grid>
+        </div>
+      </Grid>
+    </div>
+  )
 }
+
+export default MusicPlayer
