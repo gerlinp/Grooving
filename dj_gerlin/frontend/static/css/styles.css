@@ -32,11 +32,13 @@ body {
 }
 
 #music-img {
-  width: 75svw;
+  max-height: 45vh;
 }
 
 #music-btm {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #song-info {
