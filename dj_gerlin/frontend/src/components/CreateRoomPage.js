@@ -161,7 +161,7 @@ function CreateRoomPage(props) {
             value={votesToSkip}
             inputProps={{
               min: 1,
-              style: { textAlign: 'center' },
+              style: { textAlign: 'center', color: 'white' },
             }}
           />
           <FormHelperText>
