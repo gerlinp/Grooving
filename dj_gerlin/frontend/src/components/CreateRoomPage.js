@@ -98,7 +98,7 @@ function CreateRoomPage(props) {
   const title = props.update ? 'Update Room' : 'Create a Room'
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} id='create-room'>
       <Grid item xs={12} align='center'>
         <Collapse in={errorMsg !== '' || successMsg !== ''}>
           {successMsg !== '' ? (
