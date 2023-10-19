@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Button, Typography } from '@material-ui/core'
+import { Grid, Button } from '@material-ui/core'
 import CreateRoomPage from './CreateRoomPage'
 import MusicPlayer from './MusicPlayer'
 
@@ -143,9 +143,9 @@ function Room(props) {
   return (
     <Grid container spacing={1} justifyContent='center'>
       <Grid item xs={12} align='center'>
-        <Typography variant='h4' component='h4'>
+        <div variant='h4' component='h4'>
           Room Code: {roomCode}
-        </Typography>
+        </div>
       </Grid>
       <MusicPlayer {...roomDetails.song} />
       <div id='btm-bar'>

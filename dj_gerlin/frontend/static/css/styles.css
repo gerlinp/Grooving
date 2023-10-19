@@ -28,6 +28,11 @@ input {
   align-items: center;
 }
 
+#musicplayer {
+  max-width: 400px;
+  background: purple;
+}
+
 #musiccontainer {
   width: 100%;
   height: 100%;
