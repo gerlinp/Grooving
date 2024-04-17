@@ -4,7 +4,7 @@ import HomePage from './HomePage'
 
 function App() {
   return (
-    <div>
+    <div id='app'>
       <HomePage />
     </div>
   )

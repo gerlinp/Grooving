@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  div,
-  Typography,
-  Card,
-  IconButton,
-  LinearProgress,
-} from '@material-ui/core'
+import { IconButton, LinearProgress } from '@material-ui/core'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PauseIcon from '@material-ui/icons/Pause'
 import SkipNextIcon from '@material-ui/icons/SkipNext'
@@ -61,12 +55,12 @@ function MusicPlayer(props) {
         <div id='music-btm'>
           <div align='center' xs={8}>
             <div id='song-info'>
-              <Typography component='h5' variant='h5'>
+              <div component='h5' variant='h5'>
                 {props.title}
-              </Typography>
-              <Typography color='textSecondary' variant='subtitle1'>
+              </div>
+              <div color='textSecondary' variant='subtitle1'>
                 {props.artist}
-              </Typography>
+              </div>
             </div>
 
             <LinearProgress variant='determinate' value={songProgress} />
