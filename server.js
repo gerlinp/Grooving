@@ -1,8 +1,34 @@
-// ...existing code...
 const http = require('http');
-const server = http.createServer(); // Create an HTTP server instance
-
+const path = require('path');
+const fs = require('fs');
 const WebSocket = require('ws');
+
+const server = http.createServer((req, res) => {
+    // Serve static files from the "build" directory
+    const filePath = path.join(__dirname, 'build', req.url === '/' ? 'index.html' : req.url);
+    const extname = path.extname(filePath);
+    const allowedExtensions = ['.html', '.js', '.css', '.png', '.jpg', '.ico'];
+
+    if (allowedExtensions.includes(extname)) {
+        res.writeHead(200, { 'Content-Type': getContentType(extname) });
+        fs.createReadStream(filePath).pipe(res);
+    } else {
+        res.writeHead(404);
+        res.end('Not Found');
+    }
+});
+
+function getContentType(ext) {
+    const types = {
+        '.html': 'text/html',
+        '.js': 'application/javascript',
+        '.css': 'text/css',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.ico': 'image/x-icon'
+    };
+    return types[ext] || 'application/octet-stream';
+}
 
 // Create a WebSocket server
 const wss = new WebSocket.Server({ server }); // Attach to the existing HTTP server
@@ -27,5 +53,3 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
-// ...existing code...
