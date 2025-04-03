@@ -10,6 +10,7 @@ BASE_URL = "https://api.spotify.com/v1/me/"
 
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user=session_id)
+
     if user_tokens.exists():
         return user_tokens[0]
     else:
@@ -26,7 +27,7 @@ def update_or_create_user_tokens(session_id, access_token, token_type, expires_i
         tokens.expires_in = expires_in
         tokens.token_type = token_type
         tokens.save(update_fields=['access_token',
-                    'refresh_token', 'expires_in', 'token_type'])
+                                   'refresh_token', 'expires_in', 'token_type'])
     else:
         tokens = SpotifyToken(user=session_id, access_token=access_token,
                               refresh_token=refresh_token, token_type=token_type, expires_in=expires_in)
@@ -58,10 +59,10 @@ def refresh_spotify_token(session_id):
     access_token = response.get('access_token')
     token_type = response.get('token_type')
     expires_in = response.get('expires_in')
-    refresh_token = response.get('refresh_token')
 
     update_or_create_user_tokens(
         session_id, access_token, token_type, expires_in, refresh_token)
+
 
 def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
     tokens = get_user_tokens(session_id)
@@ -78,3 +79,19 @@ def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
         return response.json()
     except:
         return {'Error': 'Issue with request'}
+
+
+def play_song(session_id):
+    return execute_spotify_api_request(session_id, "player/play", put_=True)
+
+
+def pause_song(session_id):
+    return execute_spotify_api_request(session_id, "player/pause", put_=True)
+
+
+def skip_song(session_id):
+    return execute_spotify_api_request(session_id, "player/next", post_=True)
+
+
+def previous_song(session_id):
+    return execute_spotify_api_request(session_id, "player/previous", post_=True)
